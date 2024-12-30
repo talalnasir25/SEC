@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                    <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                    <path d="M3 9V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4" />
+                </svg>
+                <span>Smart Supply</span>
+            </a>
+            <nav>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/inventory">Inventory</a>
+                <a href="/transport">Transport</a>
+                <a href="/orders">Orders</a>
+                <a href="/supplier">Supplier</a>
+                <a href="/route-optimization">Route Optimization</a>
+                <a href="/predictive-analysis">Predictive analysis</a>
+                <a href="/logout">Log Out</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Order Management Section -->
+            <section id="orderManagement" class="card">
+                <h1>Order Management</h1>
+                <div class="button-grid">
+                    <button onclick="navigateTo('createOrder')" class="btn">Create Order</button>
+                    <button onclick="navigateTo('modifyOrder')" class="btn">Modify Order</button>
+                    <button onclick="navigateTo('orderStatus')" class="btn">Order Status</button>
+                    <button onclick="navigateTo('cancelOrder')" class="btn">Cancel Order</button>
+                </div>
+            </section>
+
+            <!-- Create Order Form -->
+            <section id="createOrder" class="card hidden">
+                <h1>Create Order</h1>
+                <form id="createOrderForm" class="form-grid">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderId">Order ID</label>
+                        <input type="text" id="orderId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" min="1" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryAddress">Delivery Address</label>
+                        <input type="text" id="deliveryAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderDate">Order Date</label>
+                        <input type="date" id="orderDate" required>
+                    </div>
+                    <div class="button-row">
+                        <button type="submit" class="btn btn-primary">Save Order</button>
+                        <button type="button" class="btn" onclick="navigateTo('orderManagement')">Cancel</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Modify Order Form -->
+            <section id="modifyOrder" class="card hidden">
+                <h1>Modify Order</h1>
+                <form id="modifyOrderForm" class="form-grid">
+                    <div class="form-group">
+                        <label for="searchOrderId">Select Order ID</label>
+                        <div class="search-row">
+                            <input type="text" id="searchOrderId" required>
+                            <button type="button" class="btn" onclick="searchOrder()">Search</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="modifyCustomerName">Customer Name</label>
+                        <input type="text" id="modifyCustomerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modifyProductName">Product Name</label>
+                        <input type="text" id="modifyProductName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modifyQuantity">Quantity</label>
+                            <input type="number" id="modifyQuantity" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modifyPrice">Price</label>
+                            <input type="number" id="modifyPrice" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="modifyDeliveryAddress">Delivery Address</label>
+                        <input type="text" id="modifyDeliveryAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modifyOrderDate">Order Date</label>
+                        <input type="date" id="modifyOrderDate" required>
+                    </div>
+                    <div class="button-row">
+                        <button type="submit" class="btn btn-primary">Save Order</button>
+                        <button type="button" class="btn btn-secondary"
+                            onclick="navigateTo('orderManagement')">Cancel</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Order Status -->
+            <section id="orderStatus" class="card hidden">
+                <h1>Order Status</h1>
+                <div class="order-details">
+                    <p><strong>Customer Name:</strong> <span id="statusCustomerName"></span></p>
+                    <p><strong>Order ID:</strong> <span id="statusOrderId"></span></p>
+                    <div class="product-details">
+                        <h3>Product Details:</h3>
+                        <ul>
+                            <li>Name: <span id="statusProductName"></span></li>
+                            <li>Quantity: <span id="statusQuantity"></span></li>
+                            <li>Price: $<span id="statusPrice"></span></li>
+                        </ul>
+                    </div>
+                    <p><strong>Delivery Address:</strong> <span id="statusDeliveryAddress"></span></p>
+                    <p><strong>Order Date:</strong> <span id="statusOrderDate"></span></p>
+                    <div class="button-row">
+                        <button class="btn btn-primary" onclick="editOrder()">Edit Order</button>
+                        <button class="btn" onclick="navigateTo('orderManagement')">Cancel</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cancel Order -->
+            <section id="cancelOrder" class="card hidden">
+                <h1>Cancel Order</h1>
+                <h2>Select an Order</h2>
+                <div class="form-group">
+                    <label for="cancelOrderId">Order ID</label>
+                    <input type="text" id="cancelOrderId" required>
+                </div>
+                <p class="warning-text">Warning: This action is irreversible and order will be canceled</p>
+                <div class="button-row">
+                    <button class="btn btn-danger" onclick="deleteOrder()">Delete Order</button>
+                    <button class="btn" onclick="navigateTo('orderManagement')">Cancel</button>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

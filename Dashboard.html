@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Supply Dashboard</title>
+    <link rel="stylesheet" href="styleDashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo.svg" alt="Smart Supply Logo">
+                <span>Smart Supply</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Dashboard</a>
+                <a href="#" class="nav-link">Inventory</a>
+                <a href="#" class="nav-link">Transport</a>
+                <a href="#" class="nav-link">Orders</a>
+                <a href="#" class="nav-link">Supplier</a>
+                <a href="#" class="nav-link">Route Optimization</a>
+                <a href="#" class="nav-link">Predictive analysis</a>
+                <a href="#" class="nav-link">Log Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <div class="tabs">
+            <button class="tab active" data-tab="summary">Summary</button>
+            <button class="tab" data-tab="reports">Reports</button>
+            <button class="tab" data-tab="trends">Trends</button>
+        </div>
+
+        <section class="quick-stats">
+            <div class="stat-card">
+                <h3>Total Users</h3>
+                <div class="stat-value">2,567</div>
+                <div class="stat-change positive">+12%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Active Users</h3>
+                <div class="stat-value">1,890</div>
+                <div class="stat-change negative">-9%</div>
+            </div>
+            <div class="stat-card">
+                <h3>New Users</h3>
+                <div class="stat-value">230</div>
+                <div class="stat-change positive">+11%</div>
+            </div>
+        </section>
+
+        <section class="charts">
+            <div class="chart-container">
+                <h3>User Growth Trends</h3>
+                <canvas id="userGrowthChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Performance Metrics</h3>
+                <canvas id="performanceChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>User Engagement Trend</h3>
+                <canvas id="engagementChart"></canvas>
+            </div>
+        </section>
+
+        <section class="report-filters">
+            <h2>Report Filters</h2>
+            <div class="filters-container">
+                <div class="filter">
+                    <label>Report type</label>
+                    <div class="custom-select">
+                        <select id="reportType">
+                            <option value="">Select type</option>
+                            <option value="sales">Sales Report</option>
+                            <option value="financial">Financial Report</option>
+                            <option value="inventory">Inventory Report</option>
+                            <option value="customer">Customer Report</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter">
+                    <label>Date Range</label>
+                    <input type="date" id="dateRange">
+                </div>
+                <div class="filter">
+                    <label>Status</label>
+                    <div class="custom-select">
+                        <select id="status">
+                            <option value="">Select Status</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter">
+                    <label>Search</label>
+                    <input type="text" id="search" placeholder="Search...">
+                </div>
+            </div>
+        </section>
+
+        <section class="reports-list">
+            <div class="report-item">
+                <div class="report-info">
+                    <h3>Q4 2024 Sale Report</h3>
+                    <p>Comprehensive Analysis of Q4 2024 sale performance</p>
+                    <div class="report-meta">
+                        <span>Type: Sales Report</span>
+                        <span>Date: 2025-01-15</span>
+                        <span>Status: Completed</span>
+                    </div>
+                </div>
+                <button class="export-btn">Export</button>
+            </div>
+            <div class="report-item">
+                <div class="report-info">
+                    <h3>Q3 2024 Sales Report</h3>
+                    <p>Current inventory levels and restock recommendations</p>
+                    <div class="report-meta">
+                        <span>Type: Inventory Report</span>
+                        <span>Date: 2024-06-1</span>
+                        <span>Status: Pending</span>
+                    </div>
+                </div>
+                <button class="export-btn">Export</button>
+            </div>
+        </section>
+
+        <div class="export-options">
+            <button id="exportPDF" class="export-btn">Export PDF</button>
+            <button id="exportExcel" class="export-btn">Export Excel</button>
+        </div>
+    </main>
+
+    <script src="scriptDashboard.js"></script>
+</body>
+</html>
